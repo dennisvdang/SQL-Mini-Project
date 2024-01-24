@@ -199,7 +199,7 @@ SELECT
     CONCAT_WS(', ', r.surname, r.firstname) AS recommender_name
 FROM Members m
 LEFT JOIN Members r ON m.recommendedby = r.memid
-WHERE m.recommendedby IS NOT NULL
+WHERE m.recommendedby IS NOT NULL AND m.memid != 0
 ORDER BY m.surname, m.firstname;
 
 /* Q12: Find the facilities with their usage by member, but not guests */
