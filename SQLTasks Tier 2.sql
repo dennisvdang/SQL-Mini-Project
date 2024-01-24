@@ -86,11 +86,11 @@ WHERE joindate = (
 Include in your output the name of the court, and the name of the member
 formatted as a single column. Ensure no duplicate data, and order by
 the member name. */
-SELECT DISTINCT CONCAT_WS(' ', firstname, surname) AS member_name, f.name AS court_name
+SELECT DISTINCT CONCAT_WS(' ', m.firstname, m.surname) AS member_name, f.name AS court_name
 FROM Members m
 JOIN Bookings b ON m.memid = b.memid
 JOIN Facilities f ON b.facid = f.facid
-WHERE f.name LIKE '%Tennis Court%'
+WHERE f.name LIKE '%Tennis Court%' AND b.memid != 0
 ORDER BY m.surname, m.firstname;
 	
 /* Q8: Produce a list of bookings on the day of 2012-09-14 which
