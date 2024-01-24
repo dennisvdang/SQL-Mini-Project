@@ -184,8 +184,8 @@ ORDER BY
 
 /* Q11: Produce a report of members and who recommended them in alphabetic surname,firstname order */
 SELECT 
-    m.surname || ', ' || m.firstname AS member_name, 
-    r.surname || ', ' || r.firstname AS recommender_name
+    CONCAT_WS(', ', m.surname, m.firstname) AS member_name, 
+    CONCAT_WS(', ', r.surname, r.firstname) AS recommender_name
 FROM Members m
 LEFT JOIN Members r ON m.recommendedby = r.memid
 WHERE m.recommendedby IS NOT NULL
@@ -208,7 +208,7 @@ ORDER BY
 /* Q13: Find the facilities usage by month, but not guests */
 SELECT 
     f.name AS facility_name,
-    strftime('%Y-%m', b.starttime) AS month,
+    DATE_FORMAT(b.starttime, '%Y-%m') AS month,
     COUNT(*) AS usage_count
 FROM 
     Bookings b
